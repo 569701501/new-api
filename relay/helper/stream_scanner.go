@@ -93,10 +93,10 @@ func StreamScannerHandler(c *gin.Context, resp *http.Response, info *relaycommon
 
 		// 等待所有 goroutine 退出，最多等待5秒
 		done := make(chan struct{})
-		gopool.Go(func() {
+		go func() {
 			wg.Wait()
 			close(done)
-		})
+		}()
 
 		select {
 		case <-done:
